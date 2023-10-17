@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlize", "sqlize.csproj", "{D8FE2727-A6E9-403D-97B8-2DC7B010E97A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlize", "src\sqlize.csproj", "{D8FE2727-A6E9-403D-97B8-2DC7B010E97A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
