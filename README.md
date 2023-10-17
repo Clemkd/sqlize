@@ -1,4 +1,6 @@
 # sqlize
+![workflow](https://github.com/clemkd/sqlize/actions/workflows/dotnet.yml/badge.svg)
+
 An easy-to-use .NET 6+ library for generating formatted SQL code from an interpolated string.
 
 ## Usage
