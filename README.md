@@ -3,27 +3,42 @@ An easy-to-use .NET 6+ library for generating formatted SQL code from an interpo
 
 ## Usage
 ```cs
+class Blog
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+```
+```cs
 var id = 123;
 
 var sqlize = new Sqlize();
 
 // Declare entities for use
-sqlize.Declare<Test>(out var t);
+sqlize.Declare<Blog>(out var b);
 
 // Generate formated SQL
 var query = sqlize.ToFormattedSql($@"
-    SELECT {t.Title}
-    FROM {t}
-    WHERE {t.Id} = {id};
+    SELECT {b.Name}
+    FROM {b}
+    WHERE {b.Id} = {id};
 ");
 
 Console.WriteLine(query);
 
-//  SELECT t.Title
-//  FROM Test
-//  WHERE t.Id = 123; 
+//  SELECT b.Name
+//  FROM Blog AS b
+//  WHERE b.Id = 123; 
 ```
 
+## SQL Injection
+You can use the `ToFormattableString` function instead of `ToFormattedSql` to obtain a `FormattableString` and thus use the SQL injection-proof methods of your favorite ORMs.
+
+```cs
+FormattableString query = sqlize.ToFormattableString($@"SELECT {b.Name} FROM {b} WHERE {b.Id} = {id};");
+```
+
+## Options
 This first version offers few options for managing the specific features of dbms and users.
 
 <table>
@@ -37,8 +52,8 @@ This first version offers few options for managing the specific features of dbms
     <td>Encloses column and table names in double quotes</td>
     <td>
       <pre lang="c#"> 
-      sqlize.ToFormattedSql($"SELECT {t.Title}", SqlizeFlags.DoubleQuotedName);
-      // SELECT t."Title"
+      sqlize.ToFormattedSql($"SELECT {b.Name}", SqlizeFlags.DoubleQuotedName);
+      // SELECT b."Name"
       </pre>
     </td>
   </tr>
