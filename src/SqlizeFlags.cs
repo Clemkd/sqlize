@@ -4,5 +4,5 @@
 public enum SqlizeFlags
 {
     None = 0,
-    DoubleQuotedName = 1,
+    DoubleQuotedName = 1
 }
