@@ -20,7 +20,11 @@ public class TestCases
                     ORDER BY {b.Name}, {p.Sender}, {p.CreatedAt};
                 ";
             },
-            SqlizeFlags.DoubleQuotedName,
+            (SqlizeOptions options) => 
+            {
+                options.PropertyNameFormat = (string propertyName) => $"\"{propertyName}\"";
+                options.TableNameFormat = (string tableName) => $"\"{tableName}\"";
+            },
             @"
                     SELECT b.""Name"", p.""Sender"", p.""CreatedAt"", p.""Content""
                     FROM ""Blog"" AS b
@@ -41,7 +45,11 @@ public class TestCases
                     WHERE {blog.Name} = 'A' AND {post.CreatedAt} < '2023-01-01';
                 ";
             },
-            SqlizeFlags.DoubleQuotedName,
+            (SqlizeOptions options) =>
+            {
+                options.PropertyNameFormat = (string propertyName) => $"\"{propertyName}\"";
+                options.TableNameFormat = (string tableName) => $"\"{tableName}\"";
+            },
             @"
                     DELETE post
                     FROM ""Post"" AS post
@@ -57,7 +65,11 @@ public class TestCases
                 var abc = post;
                 return (RawSqlInterpolatedStringHandler)$@"{sqlize.Alias(abc)}";
             },
-            SqlizeFlags.DoubleQuotedName,
+            (SqlizeOptions options) =>
+            {
+                options.PropertyNameFormat = (string propertyName) => $"\"{propertyName}\"";
+                options.TableNameFormat = (string tableName) => $"\"{tableName}\"";
+            },
             @"post"
         };
         yield return new object[]
@@ -70,7 +82,11 @@ public class TestCases
                     FROM {p}
                     WHERE {p.Sender} IN {new string[] { "Marc", "Ben" }};";
             },
-            SqlizeFlags.DoubleQuotedName,
+            (SqlizeOptions options) =>
+            {
+                options.PropertyNameFormat = (string propertyName) => $"\"{propertyName}\"";
+                options.TableNameFormat = (string tableName) => $"\"{tableName}\"";
+            },
             FormattableStringFactory.Create(@"
                     SELECT {0}.*
                     FROM {1}
